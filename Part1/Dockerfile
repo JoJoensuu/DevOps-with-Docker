@@ -1,16 +1,11 @@
-# Start from the alpine image
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 
-# Use /usr/src/app as our workdir. The following instructions will be executed in this location.
-WORKDIR /usr/src/app
+WORKDIR /mydir
 
-RUN apt-get update
-RUN apt-get -y install curl
+RUN apt-get update && apt-get install -y curl python
+RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+RUN chmod a+x /usr/local/bin/youtube-dl
 
-# Copy the hello.sh file from this location to /usr/src/app/ creating /usr/src/app/hello.sh.
-COPY missing_dep.sh .
+ENV LC_ALL=C.UTF-8
 
-# Execute a command with `/bin/sh -c` prefix.
-
-# When running Docker run the command will be ./hello.sh
-CMD ./missing_dep.sh
+ENTRYPOINT ["/usr/local/bin/youtube-dl"]

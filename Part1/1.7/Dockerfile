@@ -13,4 +13,4 @@ COPY missing_dep.sh .
 # Execute a command with `/bin/sh -c` prefix.
 
 # When running Docker run the command will be ./hello.sh
-CMD ./missing_dep.sh
+ENTRYPOINT ["./missing_dep.sh"]
