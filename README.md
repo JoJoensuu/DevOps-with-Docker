@@ -8,6 +8,6 @@ Ensure you have Docker installed on your system. For installation instructions, 
 
 ## Pulling and running the image
 
-### 'docker pull joensjon/cybersecurity-project:latest'
+### `docker pull joensjon/cybersecurity-project:latest`
 
-### 'docker run -p 8000:8000 -it joensjon/cybersecurity-project:latest'
+### `docker run -p 8000:8000 -it joensjon/cybersecurity-project:latest`
