@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+ redis:
+  image: redis:latest
+  ports:
+   - 6379:6379
+
+ backend:
+  build:
+   context: ../../material-applications/example-backend/
+   dockerfile: Dockerfile
+  command: ['./server']
+  environment:
+   PORT: 8080
+   REQUEST_ORIGIN: http://localhost:5000
+   REDIS_HOST: redis
+   REDIS_PORT: 6379
+  ports:
+   - 8080:8080
+  depends_on:
+   - redis
+
+ frontend:
+  build:
+   context: ../../material-applications/example-frontend/
+   dockerfile: Dockerfile 
+  command: ['serve', '-s', '-l', '5000', 'build']
+  environment:
+   PORT: 5000
+  ports:
+   - 5000:5000
+
