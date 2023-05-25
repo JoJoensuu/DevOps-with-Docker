@@ -45,7 +45,7 @@ services:
    POSTGRES_DATABASE: postgres
   container_name: db
   ports:
-   - 5432:5432
+   - 5432
   volumes:
    - ./database:/var/lib/postgresql/data
 
