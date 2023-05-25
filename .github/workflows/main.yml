@@ -2,6 +2,8 @@ name: Release DevOps with Docker
 
 on:
   push:
+    paths:
+      - 'DevOps-with-Docker/Part3/express-app/**'
     branches:
       - main
 
@@ -16,8 +18,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: ./DevOps-with-Docker/Part3/express-app
           push: true
           tags: joensjon/express-app:latest
