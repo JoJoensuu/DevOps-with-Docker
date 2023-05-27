@@ -2,8 +2,6 @@ name: Release DevOps with Docker
 
 on:
   push:
-    paths:
-      - './Part3/express-app/**'
     branches:
       - main
 
