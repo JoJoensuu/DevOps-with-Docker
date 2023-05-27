@@ -6,4 +6,4 @@ Give the shell script execute permission with
 
 Then run the script with
 
-### `./script.sh $GITHUB_REPO $DOCKER_REPO
+### `./script.sh $GITHUB_REPO $DOCKER_REPO`
