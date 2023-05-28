@@ -1,0 +1,36 @@
+FROM golang:1.16 as builder
+
+RUN useradd -m myuser
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+RUN chown -R myuser:myuser /app && \
+    su myuser -c "go mod download"
+
+COPY . .
+
+RUN chown -R myuser:myuser /app && \
+    su myuser -c "CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server"
+
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+COPY --from=builder /app/server /root/
+
+RUN adduser -D myuser
+
+RUN chown -R myuser:myuser /root/
+
+ENV PORT=8080
+ENV REQUEST_ORIGIN=http://localhost:5000
+
+USER myuser
+
+EXPOSE 8080
+
+CMD ["./server"]
